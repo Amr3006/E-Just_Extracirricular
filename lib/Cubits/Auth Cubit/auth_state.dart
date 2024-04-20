@@ -11,6 +11,8 @@ final class changeObscurityState extends AuthState {}
 
 final class changeIndexState extends AuthState {}
 
+final class signOutState extends AuthState {}
+
 final class loadingCreatingUserState extends AuthState {}
 final class successCreatingUserState extends AuthState {}
 final class failedCreatingUserState extends AuthState {
