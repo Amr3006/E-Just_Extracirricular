@@ -1,11 +1,13 @@
 
-// ignore_for_file: avoid_print, prefer_const_constructors
+// ignore_for_file: avoid_print, prefer_const_constructors, non_constant_identifier_names
 
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_just_extracirricular/Models/Post%20Model.dart';
 import 'package:e_just_extracirricular/Models/User%20Model.dart';
+import 'package:e_just_extracirricular/Screens/clubs_screen.dart';
+import 'package:e_just_extracirricular/Screens/feed_screen.dart';
 import 'package:e_just_extracirricular/Screens/home_screen.dart';
 import 'package:e_just_extracirricular/Shared/Components.dart';
 import 'package:e_just_extracirricular/Shared/Constants.dart';
@@ -24,6 +26,7 @@ class AppCubit extends Cubit<AppState> {
 
   var index = 0;
 
+  var screens = [Feed_Screen(),Clubs_Screen()];
 
   void changeDrawer(int i) {
     index = i;
@@ -31,6 +34,8 @@ class AppCubit extends Cubit<AppState> {
   }
 
   // Get User
+  UserModel? user;
+
   void getUser() {
     emit(loadingGetUserState());
     firestore
@@ -63,7 +68,30 @@ class AppCubit extends Cubit<AppState> {
       emit(successGettingPostState());
     })
     .catchError((error) {
-      emit(failedGettingPostState());
+      emit(failedGettingPostState(error.toString()));
+    });
+  }
+
+  // Get Clubs
+  List<UserModel> clubs = [];
+
+  void getClubs() {
+    emit(loadingGettingClubsState());
+    clubs.clear();
+    firestore
+    .collection("Users")
+    .get()
+    .then((value) {
+      for (var element in value.docs) {
+        var temp_model = UserModel.fromJson(element.data());
+        if (temp_model.isClub) {
+        clubs.add(temp_model);
+        }
+      }
+      emit(successGettingClubsState());
+    })
+    .catchError((error) {
+      emit(failedGettingClubsState(error.toString()));
     });
   }
 
@@ -112,9 +140,9 @@ class AppCubit extends Cubit<AppState> {
     var model = PostModel(
       postImage: postImage, 
       postText: textController.text, 
-      posterName: user.name, 
-      posterProfilePicture: user.profilePicture, 
-      posteruId: user.uId,
+      posterName: user!.name, 
+      posterProfilePicture: user!.profilePicture, 
+      posteruId: user!.uId,
       date: DateTime.now().toString());
     firestore
     .collection("Posts")

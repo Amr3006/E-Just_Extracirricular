@@ -20,11 +20,12 @@ class Feed_Screen extends StatelessWidget {
       builder: (context, state) {
         var cubit = AppCubit.get(context);
         var posts = cubit.posts;
+        var user = cubit.user;
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              if (user.isClub)
+              if (user!.isClub)
                 Padding(
                 padding: smallPadding,
                 child: Card(

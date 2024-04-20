@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_just_extracirricular/Models/User%20Model.dart';
 import 'package:e_just_extracirricular/Screens/home_screen.dart';
+import 'package:e_just_extracirricular/Screens/login_screen.dart';
 import 'package:e_just_extracirricular/Shared/CacheHelper.dart';
 import 'package:e_just_extracirricular/Shared/Components.dart';
 import 'package:e_just_extracirricular/Shared/Constants.dart';
@@ -93,6 +94,17 @@ class AuthCubit extends Cubit<AuthState> {
         emit(failedCreatingUserState(error.toString()));
         print(error.toString());
       });
+  }
+
+  void signOut(BuildContext context) {
+    auth
+    .signOut()
+    .then((value) {
+      emit(signOutState());
+      uId=null;
+      cacheHelper.deleteData(key: 'uId');
+      navigateToAndErase(context: context, destination: Login_Screen());
+    });
   }
 
 }
