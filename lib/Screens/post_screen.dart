@@ -41,7 +41,8 @@ class Post_Screen extends StatelessWidget {
               ),
               backgroundColor: backgroundColor,
               actions: [
-                TextButton(
+                if (state is! uploadingPostImageState && state is! uploadingPostState)
+                  TextButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         cubit.uploadPost(context);
