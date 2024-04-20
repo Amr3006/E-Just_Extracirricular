@@ -19,6 +19,7 @@ class Feed_Screen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = AppCubit.get(context);
+        var posts = cubit.posts;
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,16 +57,12 @@ class Feed_Screen extends StatelessWidget {
                   ),
                 ),
               ),
-              PostListBuilder(cubit.posts[1]),
-              PostListBuilder(cubit.posts[2]),
-              PostListBuilder(cubit.posts[3]),
-              PostListBuilder(cubit.posts[3]),
-              PostListBuilder(cubit.posts[4]),
-              PostListBuilder(cubit.posts[4]),
-              PostListBuilder(cubit.posts[4]),
-              PostListBuilder(cubit.posts[4]),
-              PostListBuilder(cubit.posts[4]),
-              PostListBuilder(cubit.posts[4]),
+              ListView.separated(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) => PostListBuilder(posts[index]), 
+                separatorBuilder: (context, index) => largeSeparator, 
+                itemCount: posts.length)
             ],
           ),
         );
@@ -74,6 +71,7 @@ class Feed_Screen extends StatelessWidget {
   }
 
   Widget PostListBuilder(PostModel model) {
+    var date = DateTime.parse(model.date);
     return Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child: Column(
@@ -85,7 +83,13 @@ class Feed_Screen extends StatelessWidget {
                         backgroundImage: NetworkImage(model.posterProfilePicture),
                       ),
                       mediumHbox,
-                      Expanded(child: Text(model.posterName,style: TextStyle(color: Colors.white),maxLines: 2,overflow: TextOverflow.ellipsis,))
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(width: width-(width/4) ,child: Text(model.posterName,style: TextStyle(color: Colors.white),maxLines: 1,overflow: TextOverflow.ellipsis,)),
+                          Text("${date.day}/${date.month}/${date.year} - ${date.hour}:${date.minute}",style: TextStyle(color: Colors.grey,fontSize: 12)),
+                        ],
+                      )
                     ],
                   ),
                   mediumSeparator,

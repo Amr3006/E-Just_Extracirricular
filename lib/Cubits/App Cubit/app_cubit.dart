@@ -54,6 +54,7 @@ class AppCubit extends Cubit<AppState> {
     emit(loadingGettingPostState());
     firestore
     .collection("Posts")
+    .orderBy("date", descending: true)
     .get()
     .then((value) {
       for (var element in value.docs) {
