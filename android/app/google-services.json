@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "466737081524",
+    "project_id": "e-just-extracirricular",
+    "storage_bucket": "e-just-extracirricular.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466737081524:android:562b72d2e40948b954fbe1",
+        "android_client_info": {
+          "package_name": "com.example.e_just_extracirricular"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0TXpAC0wpOGkej2UZYQN0wojvX7KaQZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,41 @@
+// ignore_for_file: file_names
+
+import 'package:e_just_extracirricular/Models/User%20Model.dart';
+import 'package:flutter/material.dart';
+
+const smallVbox = SizedBox(height: 8);
+const mediumVbox = SizedBox(height: 16);
+const largeVbox = SizedBox(height: 20);
+const smallHbox = SizedBox(width: 8);
+const mediumHbox = SizedBox(width: 16);
+const largeHbox = SizedBox(width: 20);
+const smallPadding = EdgeInsets.all(8);
+const mediumPadding = EdgeInsets.all(16);
+const largePadding = EdgeInsets.all(20);
+
+late double height;
+late double width;
+
+final mediumSeparator = Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 10),
+          child: Container(
+            width: width,
+            height: 0.5,
+            color: Colors.grey.withAlpha(700),
+          ),
+        );
+
+final largeSeparator = Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
+          child: Container(
+            width: width,
+            height: 1,
+            color: Colors.grey,
+          ),
+        );
+
+String? uId;
+
+late UserModel user;
+
+const String data = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";

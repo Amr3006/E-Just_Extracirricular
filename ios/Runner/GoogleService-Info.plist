@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDZsfoWtjgV_uRMZizVewH-t1JCY9s924U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>466737081524</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.eJustExtracirricular</string>
+	<key>PROJECT_ID</key>
+	<string>e-just-extracirricular</string>
+	<key>STORAGE_BUCKET</key>
+	<string>e-just-extracirricular.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:466737081524:ios:8d5f8665b2b67f6454fbe1</string>
+</dict>
+</plist>
