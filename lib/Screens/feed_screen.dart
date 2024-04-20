@@ -56,11 +56,11 @@ class Feed_Screen extends StatelessWidget {
                   ),
                 ),
               ),
-              PostListBuilder(cubit.posts[0]),
               largeSeparator,
               PostListBuilder(cubit.posts[1]),
               PostListBuilder(cubit.posts[2]),
-              PostListBuilder(cubit.posts[3])
+              PostListBuilder(cubit.posts[3]),
+              PostListBuilder(cubit.posts[3]),
             ],
           ),
         );
