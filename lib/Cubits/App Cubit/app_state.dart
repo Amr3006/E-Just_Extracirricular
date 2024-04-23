@@ -42,6 +42,9 @@ final class failedGettingClubsState extends AppState {
 
 final class removedPostImageState extends AppState {}
 
+final class choosedDateState extends AppState {}
+final class nulledDateState extends AppState {}
+
 final class successFollowClubState extends AppState {}
 final class failedFollowingClubState extends AppState {
   final String error;

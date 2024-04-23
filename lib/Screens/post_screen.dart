@@ -21,6 +21,7 @@ class Post_Screen extends StatelessWidget {
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
           var cubit = AppCubit.get(context);
+          var eventDate = cubit.eventDate;
           return Scaffold(
             backgroundColor: backgroundColor,
             appBar: AppBar(
@@ -57,62 +58,79 @@ class Post_Screen extends StatelessWidget {
             body: Form(
               key: formKey,
               child: SingleChildScrollView(
-                child: SizedBox(
-                  height: height*17/20,
-                  child: Column(
-                    children: [
-                      if (state is uploadingPostImageState || state is uploadingPostState)
-                        LinearProgressIndicator(color: mainColor,backgroundColor: Colors.orangeAccent[100],),
-                      Padding(
-                        padding: mediumPadding,
-                        child: PostTextField(
-                            inputType: TextInputType.text,
-                            controller: cubit.textController,
-                            validator: "Please enter text to share",
-                            hint: "What would you like to share"),
-                      ),
-                      Expanded(child: SizedBox()),
-                      if (cubit.postFileImage != null)
-                        Stack(
-                          alignment: Alignment.topLeft,
-                          children: [
-                            Padding(
-                            padding: mediumPadding,
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Container(
-                                height: height/3,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                  image: FileImage(cubit.postFileImage!)
-                                  )
-                                ),
+                child: Column(
+                  children: [
+                    if (state is uploadingPostImageState || state is uploadingPostState)
+                      LinearProgressIndicator(color: mainColor,backgroundColor: Colors.orangeAccent[100],),
+                    Padding(
+                      padding: mediumPadding,
+                      child: PostTextField(
+                          inputType: TextInputType.text,
+                          controller: cubit.textController,
+                          validator: "Please enter text to share",
+                          hint: "What would you like to share"),
+                    ),
+                    if (eventDate!=null) 
+                      Text(
+                        "Event Date : ${eventDate.day}/${eventDate.month}/${eventDate.year} - ${eventDate.hour}:${eventDate.minute}",
+                        style: TextStyle(color: mainColor),
+                        ),
+                    if (cubit.postFileImage != null)
+                      Stack(
+                        alignment: Alignment.topLeft,
+                        children: [
+                          Padding(
+                          padding: mediumPadding,
+                          child: Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: Container(
+                              height: height/3,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                image: FileImage(cubit.postFileImage!)
+                                )
                               ),
                             ),
                           ),
-                          MaterialButton(
-                            onPressed: () {
-                              cubit.removeImage();
-                            },
-                            shape: CircleBorder(eccentricity: 0.1),
-                            child: Icon(Icons.close,color: Colors.deepOrange[900],),
-                            color: Colors.orange[200],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                        ),
+                        MaterialButton(
+                          onPressed: () {
+                            cubit.removeImage();
+                          },
+                          shape: CircleBorder(eccentricity: 0.1),
+                          child: Icon(Icons.close,color: Colors.deepOrange[900],),
+                          color: Colors.orange[200],
+                        )
+                      ],
+                    )
+                  ],
                 ),
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                cubit.pickImage();
-              },
-              child: Icon(Icons.add_a_photo_outlined,
-                  color: Colors.deepOrange[900]),
-              backgroundColor: Colors.orange[200],
+            floatingActionButton: SizedBox(
+              height: 150,
+              child: Column(
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {
+                      cubit.chooseDate(context);
+                    },
+                    child: Icon(Icons.date_range,
+                        color: Colors.deepOrange[900]),
+                    backgroundColor: Colors.orange[200],
+                  ),
+                  mediumVbox,
+                  FloatingActionButton(
+                    onPressed: () {
+                      cubit.pickImage();
+                    },
+                    child: Icon(Icons.add_a_photo_outlined,
+                        color: Colors.deepOrange[900]),
+                    backgroundColor: Colors.orange[200],
+                  ),
+                ],
+              ),
             ),
           );
         },

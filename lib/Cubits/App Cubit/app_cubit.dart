@@ -1,6 +1,7 @@
 
 // ignore_for_file: avoid_print, prefer_const_constructors, non_constant_identifier_names
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -107,6 +108,45 @@ class AppCubit extends Cubit<AppState> {
   var textController = TextEditingController();
   String? postImage;
   File? postFileImage;
+  DateTime? eventDate;
+
+  void chooseDate(BuildContext context) {
+      showDatePicker(
+      context: context,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2030))
+      .then((value) {
+        if (value!=null)  {
+        chooseTime(context, value);
+        } else {
+          eventDate=null;
+          emit(nulledDateState());
+        }
+      });
+    }
+
+  void chooseTime(BuildContext context, DateTime date) {
+    showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      )
+      .then((value) {
+        var time = value;
+        if (time==null) {
+          eventDate=null;
+          emit(nulledDateState());
+        } else {
+        eventDate=DateTime(
+          date.year,
+          date.month,
+          date.day,
+          time.hour,
+          time.minute,
+        );
+        emit(choosedDateState());
+        }
+      });
+  }
 
   void pickImage() {
     emit(pickingImageState());
@@ -145,12 +185,13 @@ class AppCubit extends Cubit<AppState> {
   void uploadPost(BuildContext context) {
     emit(uploadingPostState());
     var model = PostModel(
+      eventDate: eventDate,
       postImage: postImage, 
       postText: textController.text, 
       posterName: user!.name, 
       posterProfilePicture: user!.profilePicture, 
       posteruId: user!.uId,
-      date: DateTime.now().toString());
+      postDate: DateTime.now().toString());
     firestore
     .collection("Posts")
     .add(model.toJson())

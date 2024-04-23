@@ -80,7 +80,7 @@ class Feed_Screen extends StatelessWidget {
   }
 
   Widget PostListBuilder(PostModel model) {
-    var date = DateTime.parse(model.date);
+    var date = DateTime.parse(model.postDate);
     return Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child: Column(

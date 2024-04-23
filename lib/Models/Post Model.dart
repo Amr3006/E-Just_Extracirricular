@@ -6,7 +6,8 @@ class PostModel {
   late String posterName;
   late String posterProfilePicture;
   late String posteruId;
-  late String date;
+  late String postDate;
+  dynamic eventDate;
 
   PostModel(
       {required this.postImage,
@@ -14,15 +15,17 @@ class PostModel {
       required this.posterName,
       required this.posterProfilePicture,
       required this.posteruId,
-      required this.date});
+      required this.postDate,
+      required this.eventDate});
 
   PostModel.fromJson(Map<String, dynamic> json) {
     postImage = json['postImage'];
     postText = json['postText'];
-    date = json['date'];
+    postDate = json['date'];
     posterName = json['posterName'];
     posterProfilePicture = json['posterProfilePicture'];
     posteruId = json['posteruId'];
+    eventDate = json['eventDate'];
   }
 
   Map<String, dynamic> toJson() {
@@ -30,9 +33,10 @@ class PostModel {
     data['postImage'] = this.postImage;
     data['postText'] = this.postText;
     data['posterName'] = this.posterName;
-    data['date'] = this.date;
+    data['date'] = this.postDate;
     data['posterProfilePicture'] = this.posterProfilePicture;
     data['posteruId'] = this.posteruId;
+    data['eventDate'] = this.eventDate;
     return data;
   }
 }

@@ -73,7 +73,8 @@ Widget ReusableTextField({
     controller: controller,
     cursorColor: mainColor,
     cursorErrorColor: mainColor,
-    maxLines: 6,
+    maxLines: 10,
+    minLines: 1,
     style: const TextStyle(fontSize: 20,color: Colors.white),
     decoration:  InputDecoration(
       hintText: hint,
