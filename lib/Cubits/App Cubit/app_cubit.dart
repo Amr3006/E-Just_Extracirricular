@@ -34,20 +34,13 @@ class AppCubit extends Cubit<AppState> {
     emit(changePageState());
   }
 
-  //ddddd
-
   var gotUser = false;
   var gotPosts = false;
   var gotClubs = false;
   List<bool> gotStates = [];
-  
-  // bbbb
 
   // Get User
   UserModel? user;
-  // aaaa
-
-  // cccc
 
   void getUser() {
     emit(loadingGetUserState());
