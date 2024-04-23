@@ -14,7 +14,7 @@ ThemeData whiteTheme = ThemeData(
     centerTitle: true,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
-      statusBarIconBrightness: Brightness.dark
+      statusBarIconBrightness: Brightness.light
     )
   ),
   textTheme: const TextTheme(

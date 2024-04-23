@@ -63,7 +63,10 @@ class AppCubit extends Cubit<AppState> {
     .get()
     .then((value) {
       for (var element in value.docs) {
+        var temp_post = PostModel.fromJson(element.data());
+        if (user!.following.contains(temp_post.posteruId)) {
         posts.add(PostModel.fromJson(element.data()));
+        }
       }
       emit(successGettingPostState());
     })
@@ -157,6 +160,7 @@ class AppCubit extends Cubit<AppState> {
   }
 
   // Following
+
   void followClub(String followeduId) {
     if (user!.following.contains(followeduId)) {
     user!.following.remove(followeduId);
