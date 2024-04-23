@@ -28,6 +28,7 @@ class Clubs_Screen extends StatelessWidget {
   }
 
   Widget Listbuilder(UserModel model, AppCubit cubit) {
+    var isFollowed = cubit.user!.following.contains(model.uId);
     return Padding(
       padding: mediumPadding,
       child: Row(
@@ -37,10 +38,10 @@ class Clubs_Screen extends StatelessWidget {
           Card(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             elevation: 12,
-            color: Colors.orangeAccent[100],
+            color: !isFollowed ? Colors.orangeAccent[100] : Colors.deepOrange,
             child: MaterialButton(
               elevation: 0,
-              color: Colors.orangeAccent[100],
+              color: !isFollowed ? Colors.orangeAccent[100] : Colors.deepOrange,
               splashColor: Colors.transparent,
               animationDuration: Duration(seconds: 0),
               onPressed: () {
@@ -50,9 +51,9 @@ class Clubs_Screen extends StatelessWidget {
                 width: 80,
                 alignment: Alignment.center,
                 child: Text(
-                  "Follow",
+                  isFollowed ? "Followed" : "Follow",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: isFollowed ? Colors.white : Colors.black,
                     fontSize: 16),),
               ),
               ),

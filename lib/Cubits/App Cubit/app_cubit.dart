@@ -158,17 +158,20 @@ class AppCubit extends Cubit<AppState> {
 
   // Following
   void followClub(String followeduId) {
-    user!.following.add(followeduId);
+    if (user!.following.contains(followeduId)) {
+    user!.following.remove(followeduId);
+    } else {
+      user!.following.add(followeduId);
+    }
     firestore
     .collection("Users")
     .doc(user!.uId)
     .update(user!.toJson())
     .then((value) {
-      emit(followedClubState());
+      emit(successFollowClubState());
     })
     .catchError((error) {
       emit(failedFollowingClubState(error.toString()));
     });
   }
-
 }

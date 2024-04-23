@@ -42,7 +42,7 @@ final class failedGettingClubsState extends AppState {
 
 final class removedPostImageState extends AppState {}
 
-final class followedClubState extends AppState {}
+final class successFollowClubState extends AppState {}
 final class failedFollowingClubState extends AppState {
   final String error;
   failedFollowingClubState(this.error);
