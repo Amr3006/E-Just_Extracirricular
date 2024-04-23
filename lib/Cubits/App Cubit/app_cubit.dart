@@ -41,7 +41,7 @@ class AppCubit extends Cubit<AppState> {
   
   // Get User
   UserModel? user;
-  
+  // aaaa
 
   void getUser() {
     emit(loadingGetUserState());
