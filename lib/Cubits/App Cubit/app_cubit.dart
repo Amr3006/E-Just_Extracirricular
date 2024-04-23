@@ -19,6 +19,8 @@ import 'package:image_picker/image_picker.dart';
 
 part 'app_state.dart';
 
+// hwofhwoihf
+
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitialState());
 
@@ -38,6 +40,7 @@ class AppCubit extends Cubit<AppState> {
   var gotPosts = false;
   var gotClubs = false;
   List<bool> gotStates = [];
+  
   // Get User
   UserModel? user;
 
