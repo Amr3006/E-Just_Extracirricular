@@ -34,6 +34,8 @@ class AppCubit extends Cubit<AppState> {
     emit(changePageState());
   }
 
+  // OFHAOWEHFAO
+
   var gotUser = false;
   var gotPosts = false;
   var gotClubs = false;
