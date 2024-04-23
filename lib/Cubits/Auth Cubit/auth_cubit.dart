@@ -76,6 +76,7 @@ class AuthCubit extends Cubit<AuthState> {
   ) {
     UserModel model = UserModel(
       name: nameController.text,
+      following: [],
       email: emailController.text, 
       phone: phoneController.text, 
       uId: temp_uId,

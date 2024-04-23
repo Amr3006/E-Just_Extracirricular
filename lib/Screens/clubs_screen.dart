@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, camel_case_types, unused_import
 
 
+import 'dart:ffi';
+
 import 'package:e_just_extracirricular/Cubits/App%20Cubit/app_cubit.dart';
 import 'package:e_just_extracirricular/Design/Colors.dart';
 import 'package:e_just_extracirricular/Models/User%20Model.dart';
@@ -18,14 +20,14 @@ class Clubs_Screen extends StatelessWidget {
         var cubit = AppCubit.get(context);
         var clubs = cubit.clubs;
         return ListView.separated(
-            itemBuilder: (context, index) => Listbuilder(clubs[index]),
+            itemBuilder: (context, index) => Listbuilder(clubs[index], cubit),
             separatorBuilder: (context, index) => mediumSeparator,
             itemCount: clubs.length);
       },
     );
   }
 
-  Widget Listbuilder(UserModel model) {
+  Widget Listbuilder(UserModel model, AppCubit cubit) {
     return Padding(
       padding: mediumPadding,
       child: Row(
@@ -42,7 +44,7 @@ class Clubs_Screen extends StatelessWidget {
               splashColor: Colors.transparent,
               animationDuration: Duration(seconds: 0),
               onPressed: () {
-
+                cubit.followClub(model.uId);
               },
               child: Container(
                 width: 80,

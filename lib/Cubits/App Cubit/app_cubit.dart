@@ -43,7 +43,7 @@ class AppCubit extends Cubit<AppState> {
     .doc(uId)
     .get()
     .then((value) {      
-      user = UserModel.fromJson(value.data());
+      user = UserModel.fromJson(value.data()!);
       emit(successGetUserState());
     })
     .catchError((error) {
@@ -153,6 +153,21 @@ class AppCubit extends Cubit<AppState> {
     })
     .catchError((error) {
       emit(failedUploadingPostState());
+    });
+  }
+
+  // Following
+  void followClub(String followeduId) {
+    user!.following.add(followeduId);
+    firestore
+    .collection("Users")
+    .doc(user!.uId)
+    .update(user!.toJson())
+    .then((value) {
+      emit(followedClubState());
+    })
+    .catchError((error) {
+      emit(failedFollowingClubState(error.toString()));
     });
   }
 
