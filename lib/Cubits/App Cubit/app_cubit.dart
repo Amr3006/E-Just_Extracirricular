@@ -19,8 +19,6 @@ import 'package:image_picker/image_picker.dart';
 
 part 'app_state.dart';
 
-// hwofhwoihf
-
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitialState());
 
@@ -35,8 +33,6 @@ class AppCubit extends Cubit<AppState> {
     index = i;
     emit(changePageState());
   }
-
-  // OFHAOWEHFAO
 
   var gotUser = false;
   var gotPosts = false;
