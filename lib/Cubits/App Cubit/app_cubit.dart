@@ -33,6 +33,10 @@ class AppCubit extends Cubit<AppState> {
     emit(changePageState());
   }
 
+  var gotUser = false;
+  var gotPosts = false;
+  var gotClubs = false;
+  List<bool> gotStates = [];
   // Get User
   UserModel? user;
 
@@ -55,13 +59,13 @@ class AppCubit extends Cubit<AppState> {
   List<PostModel> posts=[];
 
   void getPosts() {
-    posts.clear();
     emit(loadingGettingPostState());
     firestore
     .collection("Posts")
     .orderBy("date", descending: true)
     .get()
     .then((value) {
+      posts.clear();
       for (var element in value.docs) {
         var temp_post = PostModel.fromJson(element.data());
         if (user!.following.contains(temp_post.posteruId)) {
@@ -151,6 +155,7 @@ class AppCubit extends Cubit<AppState> {
     .collection("Posts")
     .add(model.toJson())
     .then((value) {
+      getPosts();
       emit(successUploadingPostState());
       navigateTo(context: context, destination: Home_Screen());
     })
@@ -173,6 +178,7 @@ class AppCubit extends Cubit<AppState> {
     .update(user!.toJson())
     .then((value) {
       emit(successFollowClubState());
+      getPosts();
     })
     .catchError((error) {
       emit(failedFollowingClubState(error.toString()));

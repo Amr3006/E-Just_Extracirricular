@@ -37,9 +37,9 @@ class Home_Screen extends StatelessWidget {
           var cubit = AppCubit.get(context);
           int index = cubit.index;
           List<bool> successStates = [
-            cubit.posts.isNotEmpty,
-            cubit.clubs.isNotEmpty,
-            cubit.user != null
+            state is loadingGetUserState,
+            state is loadingGettingClubsState,
+            state is loadingGettingPostState,
           ];
           return Scaffold(
             backgroundColor: backgroundColor,
@@ -140,9 +140,11 @@ class Home_Screen extends StatelessWidget {
                       )),
             ),
             body: ConditionalBuilder(
-                condition: successStates.contains(false),
+                condition: successStates.contains(true),
                 builder: (context) => mainProgressIndicator(),
-                fallback: (context) => cubit.screens[index]),
+                fallback: (context) {
+                  return cubit.screens[index];
+                }),
           );
         },
       ),

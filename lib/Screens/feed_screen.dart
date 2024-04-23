@@ -58,6 +58,14 @@ class Feed_Screen extends StatelessWidget {
                   ),
                 ),
               ),
+              if (posts.isEmpty)
+                Container(
+                  padding: largePadding,
+                  child: Text(
+                    "There is no posts to catch up with or you didn't follow any clubs",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.grey),
+                    )),
               ListView.separated(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
