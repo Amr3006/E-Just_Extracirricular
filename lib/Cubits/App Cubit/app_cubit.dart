@@ -1,7 +1,6 @@
 
-// ignore_for_file: avoid_print, prefer_const_constructors, non_constant_identifier_names
+// ignore_for_file: avoid_print, prefer_const_constructors, non_constant_identifier_names, prefer_null_aware_operators
 
-import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,6 +12,7 @@ import 'package:e_just_extracirricular/Screens/home_screen.dart';
 import 'package:e_just_extracirricular/Shared/Components.dart';
 import 'package:e_just_extracirricular/Shared/Constants.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -69,8 +69,8 @@ class AppCubit extends Cubit<AppState> {
       posts.clear();
       for (var element in value.docs) {
         var temp_post = PostModel.fromJson(element.data());
-        if (user!.following.contains(temp_post.posteruId)) {
-        posts.add(PostModel.fromJson(element.data()));
+        if (checkPost(temp_post)) {
+          posts.add(PostModel.fromJson(element.data()));
         }
       }
       emit(successGettingPostState());
@@ -79,6 +79,20 @@ class AppCubit extends Cubit<AppState> {
       emit(failedGettingPostState(error.toString()));
     });
   }
+
+    
+  bool checkPost(PostModel temp_post) {
+    if (user!.following.contains(temp_post.posteruId)) {
+      if (temp_post.eventDate==null) {
+        return true;
+      } else if (DateTime.now().isBefore(DateTime.parse(temp_post.eventDate!))) {
+        return true;
+      }
+     }
+    return false;
+  }
+
+
 
   // Get Clubs
   List<UserModel> clubs = [];
@@ -185,7 +199,7 @@ class AppCubit extends Cubit<AppState> {
   void uploadPost(BuildContext context) {
     emit(uploadingPostState());
     var model = PostModel(
-      eventDate: eventDate,
+      eventDate: eventDate==null ? null : eventDate.toString(),
       postImage: postImage, 
       postText: textController.text, 
       posterName: user!.name, 

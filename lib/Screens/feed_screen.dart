@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, camel_case_types, avoid_unnecessary_containers, unused_local_variable, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, camel_case_types, avoid_unnecessary_containers, unused_local_variable, non_constant_identifier_names, sized_box_for_whitespace
 
 import 'package:e_just_extracirricular/Cubits/App%20Cubit/app_cubit.dart';
+import 'package:e_just_extracirricular/Design/Colors.dart';
 import 'package:e_just_extracirricular/Models/Post%20Model.dart';
 import 'package:e_just_extracirricular/Screens/post_screen.dart';
 import 'package:e_just_extracirricular/Shared/Components.dart';
 import 'package:e_just_extracirricular/Shared/Constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,6 +83,10 @@ class Feed_Screen extends StatelessWidget {
 
   Widget PostListBuilder(PostModel model) {
     var date = DateTime.parse(model.postDate);
+    DateTime? eventDate;
+    if (model.eventDate!=null) {
+      eventDate = DateTime.parse(model.eventDate!);
+    }
     return Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child: Column(
@@ -95,7 +101,7 @@ class Feed_Screen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(width: width-(width/4) ,child: Text(model.posterName,style: TextStyle(color: Colors.white),maxLines: 1,overflow: TextOverflow.ellipsis,)),
+                          SizedBox(width: width-(width/4) ,child: Text(model.posterName,style: TextStyle(color: Colors.white),maxLines: 1,overflow: TextOverflow.ellipsis,)),
                           Text("${date.day}/${date.month}/${date.year} - ${date.hour}:${date.minute}",style: TextStyle(color: Colors.grey,fontSize: 12)),
                         ],
                       )
@@ -103,10 +109,20 @@ class Feed_Screen extends StatelessWidget {
                   ),
                   mediumSeparator,
                   Text(model.postText,style: TextStyle(color: Colors.white),),
+                  if (eventDate!=null)
+                    smallVbox,
+                  if (eventDate!=null)
+                    Text("Event Date : ${eventDate.day}/${eventDate.month}/${eventDate.year} - ${eventDate.hour}:${eventDate.minute}",style: TextStyle(color: mainColor,fontSize: 16),),
                   smallVbox,
                   if (model.postImage!=null) 
-                    Image(
-                      image:NetworkImage(model.postImage!),
+                    Container(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12)
+                      ),
+                      child: Image(
+                        image:NetworkImage(model.postImage!),
+                      ),
                     )
                 ],
               ),

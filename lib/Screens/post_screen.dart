@@ -17,7 +17,8 @@ class Post_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(),
+      create: (context) => AppCubit()
+      ..getUser(),
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
           var cubit = AppCubit.get(context);

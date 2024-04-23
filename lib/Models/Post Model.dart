@@ -7,7 +7,7 @@ class PostModel {
   late String posterProfilePicture;
   late String posteruId;
   late String postDate;
-  dynamic eventDate;
+  String? eventDate;
 
   PostModel(
       {required this.postImage,
