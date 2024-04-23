@@ -45,6 +45,8 @@ class AppCubit extends Cubit<AppState> {
   UserModel? user;
   // aaaa
 
+  // cccc
+
   void getUser() {
     emit(loadingGetUserState());
     firestore
