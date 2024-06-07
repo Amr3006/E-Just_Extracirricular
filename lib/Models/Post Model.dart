@@ -7,16 +7,20 @@ class PostModel {
   late String posterProfilePicture;
   late String posteruId;
   late String postDate;
+  late String id;
+  late List<String> going;
   String? eventDate;
 
-  PostModel(
-      {required this.postImage,
-      required this.postText,
-      required this.posterName,
-      required this.posterProfilePicture,
-      required this.posteruId,
-      required this.postDate,
-      required this.eventDate});
+  PostModel({
+    required this.postImage,
+    required this.postText,
+    required this.posterName,
+    required this.posterProfilePicture,
+    required this.posteruId,
+    required this.postDate,
+    required this.eventDate,
+    required this.going,
+  });
 
   PostModel.fromJson(Map<String, dynamic> json) {
     postImage = json['postImage'];
@@ -26,6 +30,7 @@ class PostModel {
     posterProfilePicture = json['posterProfilePicture'];
     posteruId = json['posteruId'];
     eventDate = json['eventDate'];
+    going = json['going'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -37,6 +42,19 @@ class PostModel {
     data['posterProfilePicture'] = this.posterProfilePicture;
     data['posteruId'] = this.posteruId;
     data['eventDate'] = this.eventDate;
+    data['going'] = this.going;
     return data;
+  }
+
+  PostModel clone() {
+    return PostModel(
+        postImage: postImage,
+        postText: postText,
+        posterName: posterName,
+        posterProfilePicture: posterProfilePicture,
+        posteruId: posteruId,
+        postDate: postDate,
+        eventDate: eventDate,
+        going: List.from(going));
   }
 }
