@@ -9,14 +9,14 @@ class UserModel {
   late bool isClub;
   late List<String> following;
 
-  UserModel({
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.uId,
-    required this.profilePicture,
-    required this.isClub,
-    required this.following});
+  UserModel(
+      {required this.name,
+      required this.email,
+      required this.phone,
+      required this.uId,
+      required this.profilePicture,
+      required this.isClub,
+      required this.following});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -38,5 +38,16 @@ class UserModel {
     data['isClub'] = this.isClub;
     data['following'] = this.following;
     return data;
+  }
+
+  UserModel clone() {
+    return UserModel(
+        name: name,
+        email: email,
+        phone: phone,
+        uId: uId,
+        profilePicture: profilePicture,
+        isClub: isClub,
+        following: List.from(following));
   }
 }

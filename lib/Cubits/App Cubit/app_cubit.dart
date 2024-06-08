@@ -40,7 +40,7 @@ class AppCubit extends Cubit<AppState> {
   List<bool> gotStates = [];
 
   // Get User
-  UserModel? user;
+  UserModel? user, retrieving_user;
 
   void getUser() {
     emit(loadingGetUserState());
@@ -50,6 +50,7 @@ class AppCubit extends Cubit<AppState> {
     .get()
     .then((value) {      
       user = UserModel.fromJson(value.data()!);
+      retrieving_user = user!.clone();
       emit(successGetUserState());
     })
     .catchError((error) {
@@ -200,6 +201,7 @@ class AppCubit extends Cubit<AppState> {
   void uploadPost(BuildContext context) {
     emit(uploadingPostState());
     var model = PostModel(
+      going: [],
       eventDate: eventDate==null ? null : eventDate.toString(),
       postImage: postImage, 
       postText: textController.text, 
@@ -210,7 +212,7 @@ class AppCubit extends Cubit<AppState> {
     firestore
     .collection("Posts")
     .add(model.toJson())
-    .then((value) {
+    .then((value) {  
       getPosts();
       emit(successUploadingPostState());
       navigateTo(context: context, destination: Home_Screen());
@@ -233,10 +235,12 @@ class AppCubit extends Cubit<AppState> {
     .doc(user!.uId)
     .update(user!.toJson())
     .then((value) {
+      retrieving_user = user!.clone();
       emit(successFollowClubState());
       getPosts();
     })
     .catchError((error) {
+      user = retrieving_user!.clone();
       emit(failedFollowingClubState(error.toString()));
     });
   }
